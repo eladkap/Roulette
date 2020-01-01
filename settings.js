@@ -9,8 +9,7 @@ const BOARD_POS_X = 100;
 const BOARD_POS_Y = 100;
 const BOARD_ROWS = 12;
 const BOARD_COLS = 3;
-const TILE_SIZE1 = [50, 50];
-const TILE_SIZE2 = [50, 100];
+const TILE_SIZE = 50
 
 /* COLORS */
 const BLACK = [0, 0, 0];
@@ -23,3 +22,4 @@ const GREENLIGHT = [0, 200, 0];
 /* FONT */
 const FONT_FAMILY = 'Bodoni MT Black';
 const FONT_SIZE = 20;
+const FONT_FACTOR = 1;

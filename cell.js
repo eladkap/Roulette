@@ -15,7 +15,7 @@ class Cell{
     draw(){
         // draw rectangle
         strokeWeight(2);
-        stroke(color(YELLOW));
+        stroke(color(WHITE));
         fill(color(this.backColor));
         rect(this.pos.x, this.pos.y, this.w, this.h);
 
