@@ -85,6 +85,24 @@ class Board{
         value = 'ODD';
         let odd_tile = new Cell(x, y, 0, 0, w, h, value, FONT_FAMILY, FONT_SIZE * FONT_FACTOR, WHITE, GREEN);
         tiles.push(odd_tile);
+
+        // BLACK
+        x = this.pos.x + 6 * TILE_SIZE;
+        y = this.pos.y + 4 * TILE_SIZE;
+        w = 3 * TILE_SIZE;
+        h = 2 * TILE_SIZE;
+        value = 'quad';
+        let black_tile = new Cell(x, y, 0, 0, w, h, value, FONT_FAMILY, FONT_SIZE * FONT_FACTOR, WHITE, BLACK);
+        tiles.push(black_tile);
+
+        // RED
+        x = this.pos.x + 6 * TILE_SIZE;
+        y = this.pos.y + 6 * TILE_SIZE;
+        w = 3 * TILE_SIZE;
+        h = 2 * TILE_SIZE;
+        value = 'quad';
+        let red_tile = new Cell(x, y, 0, 0, w, h, value, FONT_FAMILY, FONT_SIZE * FONT_FACTOR, WHITE, RED);
+        tiles.push(red_tile);
         
         return tiles;
     }
