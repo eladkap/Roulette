@@ -8,6 +8,7 @@ class Board{
 
     initTiles(){
         let tiles = [];
+        let index = 0;
         let value = 1;
         for (let r = 0; r < this.rows; r++){
             for (let c = 0; c < this.cols; c++){       
@@ -15,11 +16,18 @@ class Board{
                 let y = this.pos.y + r * TILE_SIZE;
                 let w = TILE_SIZE;
                 let h = TILE_SIZE;
-                let backColor = (value % 2 == 0) ? BLACK : RED;
+                let backColor;
+                if ((value >=1 && value <= 10) || (value >= 19 && value <= 28)){
+                    backColor = (value % 2 == 0) ? BLACK : RED;
+                }
+                else{
+                    backColor = (value % 2 == 1) ? BLACK : RED;
+                }
                 let foreColor = WHITE;
-                let cell = new Cell(x, y, r, c, w, h, value, FONT_FAMILY, FONT_SIZE, foreColor, backColor);
+                let cell = new Cell(x, y, r, c, w, h, value, index, FONT_FAMILY, FONT_SIZE2, foreColor, backColor);
                 tiles.push(cell);
                 value++;
+                index++;
             }
         }
                
@@ -29,7 +37,7 @@ class Board{
         let w = 3 * TILE_SIZE;
         let h = 4 * TILE_SIZE;
         value = '1st 12';
-        let cell_1_12 = new Cell(x, y, 0, 0, w, h, value, FONT_FAMILY, FONT_SIZE * FONT_FACTOR, WHITE, GREEN);
+        let cell_1_12 = new Cell(x, y, 0, 0, w, h, value, -1, FONT_FAMILY, FONT_SIZE3 * FONT_FACTOR, WHITE, GREEN);
         tiles.push(cell_1_12);
 
         // 2nd 12
@@ -38,7 +46,7 @@ class Board{
         w = 3 * TILE_SIZE;
         h = 4 * TILE_SIZE;
         value = '2nd 12';
-        let cell_2_12 = new Cell(x, y, 0, 0, w, h, value, FONT_FAMILY, FONT_SIZE * FONT_FACTOR, WHITE, GREEN);
+        let cell_2_12 = new Cell(x, y, 0, 0, w, h, value, -1, FONT_FAMILY, FONT_SIZE3 * FONT_FACTOR, WHITE, GREEN);
         tiles.push(cell_2_12);
 
         // 3rd 12
@@ -47,7 +55,7 @@ class Board{
         w = 3 * TILE_SIZE;
         h = 4 * TILE_SIZE;
         value = '3rd 12';
-        let cell_3_12 = new Cell(x, y, 0, 0, w, h, value, FONT_FAMILY, FONT_SIZE * FONT_FACTOR, WHITE, GREEN);
+        let cell_3_12 = new Cell(x, y, 0, 0, w, h, value, -1, FONT_FAMILY, FONT_SIZE3 * FONT_FACTOR, WHITE, GREEN);
         tiles.push(cell_3_12);
 
         // 1 - 18
@@ -56,7 +64,7 @@ class Board{
         w = 3 * TILE_SIZE;
         h = 2 * TILE_SIZE;
         value = '1 - 18';
-        let cell_1_18 = new Cell(x, y, 0, 0, w, h, value, FONT_FAMILY, FONT_SIZE * FONT_FACTOR, WHITE, GREEN);
+        let cell_1_18 = new Cell(x, y, 0, 0, w, h, value, -1, FONT_FAMILY, FONT_SIZE3 * FONT_FACTOR, WHITE, GREEN);
         tiles.push(cell_1_18);
 
         // 19 - 36
@@ -65,7 +73,7 @@ class Board{
         w = 3 * TILE_SIZE;
         h = 2 * TILE_SIZE;
         value = '19 - 36';
-        let cell_19_36 = new Cell(x, y, 0, 0, w, h, value, FONT_FAMILY, FONT_SIZE * FONT_FACTOR, WHITE, GREEN);
+        let cell_19_36 = new Cell(x, y, 0, 0, w, h, value, -1, FONT_FAMILY, FONT_SIZE3 * FONT_FACTOR, WHITE, GREEN);
         tiles.push(cell_19_36);
 
         // EVEN
@@ -74,8 +82,8 @@ class Board{
         w = 3 * TILE_SIZE;
         h = 2 * TILE_SIZE;
         value = 'EVEN';
-        let even_tile = new Cell(x, y, 0, 0, w, h, value, FONT_FAMILY, FONT_SIZE * FONT_FACTOR, WHITE, GREEN);
-        tiles.push(even_tile);
+        let evenTile = new Cell(x, y, 0, 0, w, h, value, -1, FONT_FAMILY, FONT_SIZE3 * FONT_FACTOR, WHITE, GREEN);
+        tiles.push(evenTile);
 
         // ODD
         x = this.pos.x + 6 * TILE_SIZE;
@@ -83,33 +91,50 @@ class Board{
         w = 3 * TILE_SIZE;
         h = 2 * TILE_SIZE;
         value = 'ODD';
-        let odd_tile = new Cell(x, y, 0, 0, w, h, value, FONT_FAMILY, FONT_SIZE * FONT_FACTOR, WHITE, GREEN);
-        tiles.push(odd_tile);
+        let oddTile = new Cell(x, y, 0, 0, w, h, value, -1, FONT_FAMILY, FONT_SIZE3 * FONT_FACTOR, WHITE, GREEN);
+        tiles.push(oddTile);
 
         // BLACK
         x = this.pos.x + 6 * TILE_SIZE;
         y = this.pos.y + 4 * TILE_SIZE;
         w = 3 * TILE_SIZE;
         h = 2 * TILE_SIZE;
-        value = 'quad';
-        let black_tile = new Cell(x, y, 0, 0, w, h, value, FONT_FAMILY, FONT_SIZE * FONT_FACTOR, WHITE, BLACK);
-        tiles.push(black_tile);
+        value = 'quad black';
+        let blackTile = new Cell(x, y, 0, 0, w, h, value, -1, FONT_FAMILY, FONT_SIZE3 * FONT_FACTOR, WHITE, BLACK);
+        tiles.push(blackTile);
 
         // RED
         x = this.pos.x + 6 * TILE_SIZE;
         y = this.pos.y + 6 * TILE_SIZE;
         w = 3 * TILE_SIZE;
         h = 2 * TILE_SIZE;
-        value = 'quad';
-        let red_tile = new Cell(x, y, 0, 0, w, h, value, FONT_FAMILY, FONT_SIZE * FONT_FACTOR, WHITE, RED);
-        tiles.push(red_tile);
+        value = 'quad red';
+        let redTile = new Cell(x, y, 0, 0, w, h, value, -1, FONT_FAMILY, FONT_SIZE2 * FONT_FACTOR, WHITE, RED);
+        tiles.push(redTile);
         
+        // Zero
+        x = this.pos.x;
+        y = this.pos.y + - TILE_SIZE;
+        w = 3 * TILE_SIZE;
+        h = TILE_SIZE;
+        value = 0;
+        let zeroTile= new Cell(x, y, 0, 0, w, h, value, -1, FONT_FAMILY, FONT_SIZE2 * FONT_FACTOR, WHITE, GREEN); 
+        tiles.push(zeroTile);
+
         return tiles;
     }
 
     draw(){
         for (let cell of this.tiles){        
             cell.draw();
+        }
+    }
+
+    setCellsFocus(b, predicate){
+        for (let i = 0; i < NUMBERS; i++){
+            if (predicate(this.tiles[i])){
+                this.tiles[i].setFocus(b);
+            }
         }
     }
 }
