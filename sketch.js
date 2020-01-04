@@ -64,9 +64,18 @@ function decreaseBet(){
 /* Mouse Events */
 
 function mouseMoved(){
+  let focusTiles = 0;
   for (let cell of board.tiles){
-    if (cell.isFocused(mouseX, mouseY)){
+    let isfocused;
+    if (cell.w == TILE_SIZE){
+      isfocused = cell.isFocusedNear(mouseX, mouseY);
+    }
+    else{
+      isfocused = cell.isFocusedIn(mouseX, mouseY);
+    }
+    if (isfocused){
       cell.setFocus(true);
+      focusTiles++;
       if (cell.value == '1st 12'){
         board.setCellsFocus(true, (c) => c.value >= 1 && c.value <= 12);
       }
@@ -99,11 +108,14 @@ function mouseMoved(){
       cell.setFocus(false);
     }
   }
+  if (focusTiles == 3){
+    board.setCellsFocus(false, (c) => true);
+  }
 }
 
 function mousePressed(){
   for (let cell of board.tiles){
-    if (cell.isFocused(mouseX, mouseY)){
+    if (cell.isFocusedIn(mouseX, mouseY)){
       cell.chooseUnchoose();
     }
   }
