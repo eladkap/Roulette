@@ -8,20 +8,27 @@ class States{
         this.currentBetIndex = 0;
         this.betsPlaced = [];
         this.bet = bet;
+        this.msg = 'Place your bets';
     }
 
     draw(){
-        fill(color(BLACK));
-        rect(0, 0, STATES_WIDTH, STATES_HEIGHT);
+        fill(BLACK);
+        rect(0, 0, STATES_WIDTH, STATES_HEADER_HEIGHT);
+        rect(0, height - STATES_FOOTER_HEIGHT, STATES_WIDTH, STATES_FOOTER_HEIGHT);
 
-        fill(color(YELLOW));
+        fill(YELLOW);
         noStroke();
         textSize(FONT_SIZE2);
         textStyle(NORMAL);
         textFont(FONT_FAMILY);
         textAlign(CENTER, CENTER);
-        text('CASH: ' + this.cash + CURRENCY, this.pos.x + SCREEN_WIDTH / 10, this.pos.y, 200, STATES_HEIGHT);
-        text('BET: ' + this.currentBet + CURRENCY, this.pos.x + SCREEN_WIDTH *0.75, this.pos.y, 200, STATES_HEIGHT);  
+        text('CASH: ' + this.cash + CURRENCY, this.pos.x + SCREEN_WIDTH / 20, this.pos.y, 200, STATES_HEADER_HEIGHT);
+        text('BET: ' + this.currentBet + CURRENCY, this.pos.x + SCREEN_WIDTH * 0.8, this.pos.y, 200, STATES_HEADER_HEIGHT);  
+
+        fill(YELLOW);
+        textAlign(CENTER, CENTER);
+        text(this.msg, this.pos.x + SCREEN_WIDTH / 2, SCREEN_HEIGHT - STATES_FOOTER_HEIGHT, this.msg.length * FONT_SIZE1, STATES_FOOTER_HEIGHT);
+        textSize(FONT_SIZE1);
         this.bet.draw();
     }
 
@@ -37,6 +44,7 @@ class States{
             this.currentBet = BET_VALUES[this.currentBetIndex];
             this.bet.setValue(this.currentBet);
             this.bet.setBetIndex(this.currentBetIndex);
+            this.bet.setBackcolor(BET_COLORS[this.currentBetIndex]);
         }
     }
 
@@ -46,6 +54,7 @@ class States{
             this.currentBet = BET_VALUES[this.currentBetIndex];
             this.bet.setValue(this.currentBet);
             this.bet.setBetIndex(this.currentBetIndex);
+            this.bet.setBackcolor(BET_COLORS[this.currentBetIndex]);
         }
     }
 
@@ -55,5 +64,9 @@ class States{
 
     clearBets(){
         this.betsPlaced.splice(0, this.betsPlaced.length);
+    }
+
+    setMessage(msg){
+        this.msg = msg;
     }
 }

@@ -1,6 +1,7 @@
 class Cell{
     constructor(x, y, row, col, w, h, value, index, fontFamily, fontSize, foreColor, backColor){
         this.pos = createVector(x, y);
+        this.cpos = createVector(x + w/2, y + h/2);
         this.row = row;
         this.col = col;
         this.w = w;
@@ -12,7 +13,7 @@ class Cell{
         this.foreColor = foreColor;
         this.backColor = backColor;
         this.focus = false;
-        this.chosen = false;
+        this.totalBet = 0;
     }
 
     draw(){
@@ -33,7 +34,7 @@ class Cell{
         // draw rectangle
         if (this.chosen){
             strokeWeight(3);
-            stroke(color(YELLOW));
+            stroke(YELLOW);
         }
         else{
             strokeWeight(1);
@@ -52,10 +53,14 @@ class Cell{
         text(this.value, this.pos.x, this.pos.y, this.w, this.h);
     }
 
-    isFocused(mouseX, mouseY){
+    isFocusedIn(mouseX, mouseY){
         let xAxis =  mouseX > this.pos.x && mouseX < this.pos.x + this.w;
         let yAxis =  mouseY > this.pos.y && mouseY < this.pos.y + this.h;
-        return xAxis && yAxis
+        return xAxis && yAxis;
+    }
+
+    isFocusedNear(mouseX, mouseY){
+        return dist(this.cpos.x, this.cpos.y, mouseX, mouseY) < this.w/2*sqrt(2)+5;
     }
 
     setFocus(value){
@@ -92,12 +97,11 @@ class Cell{
         }
     }
  
-    isChosen(){
-        return this.chosen;
+    hasBet(){
+        return this.totalBet > 0;
     }
 
-    chooseUnchoose(){
-        this.chosen = !this.chosen;
+    addBet(betValue){
+        this.totalBet += betValue;
     }
-    
 }

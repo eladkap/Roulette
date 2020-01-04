@@ -2,7 +2,7 @@
 const SCREEN_WIDTH = 1280;
 const SCREEN_HEIGHT = 900;
 
-const FPS = 10;
+const FPS = 30;
 
 /* BOARD */
 const BOARD_POS_X = 100;
@@ -38,7 +38,8 @@ const FONT_FACTOR = 1;
 const STATES_POS_X = 0;
 const STATES_POS_Y = 0;
 const STATES_WIDTH = SCREEN_WIDTH;
-const STATES_HEIGHT = 100;
+const STATES_HEADER_HEIGHT = 80;
+const STATES_FOOTER_HEIGHT = 60;
 const INITIAL_CASH = 500;
 
 /* BET VAUES */
@@ -49,7 +50,7 @@ const CURRENCY = '$';
 const BET_RADIUS = 30;
 const BET_COLORS = [YELLOW, PINK, GREENLIGHT, BLUELIGHT, REDLIGHT, PURPLE];
 
-/* WHEELE CLASSIC */
+/* WHEEL CLASSIC */
 const WHEEL_POS_X = 800;
 const WHEEL_POS_Y = 400;
 const WHEEL_RADIUS = 400;
