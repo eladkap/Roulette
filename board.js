@@ -8,7 +8,7 @@ class Board{
 
     initTiles(){
         let tiles = [];
-        let index = 0;
+        let index = 1;
         let value = 1;
         for (let r = 0; r < this.rows; r++){
             for (let c = 0; c < this.cols; c++){       
@@ -118,7 +118,7 @@ class Board{
         w = 3 * TILE_SIZE;
         h = TILE_SIZE;
         value = 0;
-        let zeroTile= new Cell(x, y, 0, 0, w, h, value, -1, FONT_FAMILY, FONT_SIZE2 * FONT_FACTOR, WHITE, GREEN); 
+        let zeroTile= new Cell(x, y, 0, 0, w, h, value, 0, FONT_FAMILY, FONT_SIZE2 * FONT_FACTOR, WHITE, GREEN); 
         tiles.push(zeroTile);
 
         return tiles;

@@ -9,6 +9,7 @@ class Bet{
         this.foreColor = foreColor;
         this.betIndex = betIndex;
         this.backColor = BET_COLORS[this.betIndex];
+        this.cellNumbers = [];
     }
 
     draw(){
@@ -49,5 +50,9 @@ class Bet{
 
     isClicked(mouseX, mouseY){
         return dist(mouseX, mouseY, this.cpos.x, this.cpos.y) < this.r;
+    }
+
+    addCellNumber(cellNumber){
+        this.cellNumbers.push(cellNumber);
     }
 }

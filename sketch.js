@@ -7,7 +7,9 @@ var btnDecreaseBet;
 var btnSpin;
 
 var focusTiles = [];
-var bets = [];
+var focusNumbers = [];
+var chosenNumbers = new Set();
+var chosenTiles = new Set();
 
 
 function setup() {
@@ -78,19 +80,36 @@ function decreaseBet(){
 function spinRoulette(){
   if (states.betsPlaced.length == 0){
     states.setMessage('Please place your bets.');
+    return;
   }
+
 }
 
 function drawBets(){
-  for (let bet of bets){
+  for (let bet of states.betsPlaced){
     bet.draw();
   }
 }
 
 function placeBet(pos){
   let bet = new Bet(pos[0], pos[1], TILE_SIZE / 4, states.bet.value, FONT_FAMILY, FONT_SIZE1 / 2, WHITE, 0);
+  for (let cellNumber of focusNumbers){
+    bet.addCellNumber(cellNumber);
+  }
   bet.setBackcolor(states.bet.backColor);
-  bets.push(bet);
+  states.betsPlaced.push(bet);
+  states.totalBet += states.currentBet;
+  states.cash -= states.currentBet;
+}
+
+function removeBet(bet){
+  states.totalBet -= bet.value;
+  states.cash += bet.value;
+  for (let cellNumber of bet.cellNumbers){
+    cellNumber.totalBet -= bet.value;
+    cellNumber.setChosen(false);
+  }
+  //chosenNumbers.delete();
 }
 
 /* Mouse Events */
@@ -144,31 +163,90 @@ function mouseMoved(){
     board.setCellsFocus(false, (c) => true);
     focusTiles = [];
   }
+
+   /* Get focused numbers */
+   focusNumbers = [];
+   for (let cell of board.tiles){
+     if (cell.index >= 0 && cell.focus){
+       focusNumbers.push(cell);
+     }
+   }
+}
+
+function isNumberPicked(){
+  for (let cell of focusTiles){
+    if (cell.index == -1){
+      return false;
+    }
+  }
+  return true;
+}
+
+function getNonNumberFocusTile(){
+  for (let cell of focusTiles){
+    if (cell.index == -1){
+      return cell;
+    }
+  }
+  return null;
+}
+
+function getFocusedCells(){
+  let focusedTiles = [];
+  for (let cell of board.tiles){
+    if (cell.focus){
+      focusedTiles.push(cell);
+    }
+  }
+  return focusedTiles;
 }
 
 function mousePressed(){
   if (mouseButton === LEFT) {
+    focusTiles = getFocusedCells();
+
+    /* No tile is in focus */
     if (focusTiles.length == 0){
       return;
     }
-    let sumX = 0;
-    let sumY = 0;
+
+    /* If a focused tile is already picked for bet return */ 
     for (let cell of focusTiles){
-      if (cell.hasBet()){
+      if (cell.isChosen()){
+        print('A tile already has bet');
+        states.setMessage('A tile already has bet');
         return;
       }
+    }
+
+    /* Calculate position to place bet */
+    let sumX = 0;
+    let sumY = 0;
+    let pos;
+    for (let cell of focusNumbers){
+      chosenNumbers.add(cell.value);
+      cell.setChosen(true);
       cell.addBet(states.bet.value);
       sumX += cell.pos.x + cell.w/4;
-      sumY += cell.pos.y + cell.h/4; 
+      sumY += cell.pos.y + cell.h/4;
     }
-    let pos = [sumX / focusTiles.length, sumY / focusTiles.length];
+    if (isNumberPicked()){
+      pos = [sumX / focusNumbers.length, sumY / focusNumbers.length];
+    }
+    else{
+      /* Get non-number picked tile  */
+      let otherCell = getNonNumberFocusTile();
+      pos = [otherCell.pos.x + otherCell.w/3, otherCell.pos.y + otherCell.h/3];
+    }
     placeBet(pos);
   }
+
   else if (mouseButton == CENTER){
-    for (let i = 0; i < bets.length; i++){
-      let bet = bets[i];
+    for (let i = 0; i < states.betsPlaced.length; i++){
+      let bet = states.betsPlaced[i];
       if (bet.isClicked(mouseX, mouseY)){
-        bets.splice(i, 1);
+        removeBet(bet);
+        states.betsPlaced.splice(i, 1);
       }
     }
   }

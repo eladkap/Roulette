@@ -8,6 +8,7 @@ class States{
         this.currentBetIndex = 0;
         this.betsPlaced = [];
         this.bet = bet;
+        this.totalBet = 0;
         this.msg = 'Place your bets';
     }
 
@@ -23,7 +24,7 @@ class States{
         textFont(FONT_FAMILY);
         textAlign(CENTER, CENTER);
         text('CASH: ' + this.cash + CURRENCY, this.pos.x + SCREEN_WIDTH / 20, this.pos.y, 200, STATES_HEADER_HEIGHT);
-        text('BET: ' + this.currentBet + CURRENCY, this.pos.x + SCREEN_WIDTH * 0.8, this.pos.y, 200, STATES_HEADER_HEIGHT);  
+        text('BET: ' + this.totalBet + CURRENCY, this.pos.x + SCREEN_WIDTH * 0.8, this.pos.y, 200, STATES_HEADER_HEIGHT);  
 
         fill(YELLOW);
         textAlign(CENTER, CENTER);

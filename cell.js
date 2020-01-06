@@ -13,6 +13,7 @@ class Cell{
         this.foreColor = foreColor;
         this.backColor = backColor;
         this.focus = false;
+        this.chosen = false;
         this.totalBet = 0;
     }
 
@@ -32,14 +33,8 @@ class Cell{
         }
 
         // draw rectangle
-        if (this.chosen){
-            strokeWeight(3);
-            stroke(YELLOW);
-        }
-        else{
-            strokeWeight(1);
-            stroke(WHITE);
-        }
+        strokeWeight(1);
+        stroke(WHITE);
         fill(this.backColor);
         rect(this.pos.x, this.pos.y, this.w, this.h);
 
@@ -103,5 +98,13 @@ class Cell{
 
     addBet(betValue){
         this.totalBet += betValue;
+    }
+
+    isChosen(){
+        return this.chosen;
+    }
+
+    setChosen(value){
+        this.chosen = value;
     }
 }
