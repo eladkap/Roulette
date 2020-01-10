@@ -107,4 +107,10 @@ class Cell{
     setChosen(value){
         this.chosen = value;
     }
+
+    isClicked(mouseX, mouseY){
+        let axisX = mouseX > this.pos.x && mouseX < this.pos.x + this.w;
+        let axisY = mouseY > this.pos.y && mouseY < this.pos.y + this.h;
+        return axisX && axisY;
+    }
 }

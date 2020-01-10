@@ -154,6 +154,7 @@ function mouseMoved(){
       else if (cell.value == 'quad red'){
         board.setCellsFocus(true, (c) => c.backColor == RED);
       }
+      
     }
     else{
       cell.setFocus(false);
@@ -210,14 +211,27 @@ function mousePressed(){
       return;
     }
 
+    /* If the clicked tile is already chosen for bet return */
+    for (let cell of board.tiles){
+      if (cell.isClicked(mouseX, mouseY)){
+        if (cell.isChosen()){
+          print('A tile already has bet ' + cell.value);
+          states.setMessage('A tile already has bet');
+          return;
+        }
+      }
+    }
+
     /* If a focused tile is already picked for bet return */ 
+    /*
     for (let cell of focusTiles){
       if (cell.isChosen()){
-        print('A tile already has bet');
+        print('A tile already has bet ' + cell.value);
         states.setMessage('A tile already has bet');
         return;
       }
     }
+    */
 
     /* Calculate position to place bet */
     let sumX = 0;
