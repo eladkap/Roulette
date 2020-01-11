@@ -26,7 +26,7 @@ function draw() {
   board.draw();
   states.draw();
   drawBets();
-  //wheel.draw();
+  wheel.draw();
 }
 
 
@@ -40,7 +40,7 @@ function setStates(){
 }
 
 function setWheel(){
-  wheel = new Wheel(WHEEL_POS_X, WHEEL_POS_Y, WHEEL_RADIUS, WHEEL_SLOTS);
+  wheel = new Wheel(WHEEL_POS_X, WHEEL_POS_Y, WHEEL_RADIUS, MAX_ARC_SPEED);
 }
 
 function setButton(value, action, foreColor, backColor, pos, fontSize, borderRadius, iconImg){
@@ -84,6 +84,7 @@ function spinRoulette(){
   }
   let chosenNumbers = getChosenNumbers();
   print(chosenNumbers);
+  wheel.spin();
 }
 
 function drawBets(){

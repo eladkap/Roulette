@@ -24,6 +24,8 @@ const GREENLIGHT = [50, 200, 50];
 const PINK = [255, 120, 255];
 const PURPLE = [255, 0, 255];
 const BLUELIGHT = [100, 100, 255];
+const BROWN = [128, 64, 0];
+const BROWNLIGHT = [230, 115, 0];
 
 
 /* FONT */
@@ -50,15 +52,18 @@ const CURRENCY = '$';
 const BET_RADIUS = 30;
 const BET_COLORS = [YELLOW, PINK, GREENLIGHT, BLUELIGHT, REDLIGHT, PURPLE];
 
-/* WHEEL CLASSIC */
-const WHEEL_POS_X = 800;
-const WHEEL_POS_Y = 400;
-const WHEEL_RADIUS = 400;
+/* WHEEL */
+const WHEEL_POS_X = 400;
+const WHEEL_POS_Y = 50;
+const WHEEL_RADIUS = 500;
+const MAX_ARC_SPEED = 0.3;
+const ARC_SPEED_SLOW_DOWN_RATE = 0.002;
 
-const WHEEL_SLOTS = [1, 2, 3, 4, 5, 6];
-/*
+const WHEEL_SLOTS1 = [2,2,2,2,2,2,2,2,2,2,2,2];
+
+const WHEEL_SLOTS2 = [1,2,3,4];
+
 const WHEEL_SLOTS = [0, 28, 9, 26, 30, 11, 7, 20, 32,
                         17, 5, 22, 34, 15, 3, 24, 36, 13, 
                         1, 27, 10, 25, 29, 12, 8, 19, 31,
                          18, 6, 21, 33, 16, 4, 23, 35, 14, 2];
-*/
