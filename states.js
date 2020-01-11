@@ -28,7 +28,7 @@ class States{
 
         fill(YELLOW);
         textAlign(CENTER, CENTER);
-        text(this.msg, this.pos.x + SCREEN_WIDTH / 2, SCREEN_HEIGHT - STATES_FOOTER_HEIGHT, this.msg.length * FONT_SIZE1, STATES_FOOTER_HEIGHT);
+        text(this.msg, this.pos.x + SCREEN_WIDTH / 2 - this.msg.length * FONT_SIZE1, SCREEN_HEIGHT - STATES_FOOTER_HEIGHT, this.msg.length * FONT_SIZE1, STATES_FOOTER_HEIGHT);
         textSize(FONT_SIZE1);
         this.bet.draw();
     }

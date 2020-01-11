@@ -8,7 +8,7 @@ var btnSpin;
 
 var focusTiles = [];
 var focusNumbers = [];
-var chosenNumbers = new Set();
+//var chosenNumbers = new Set();
 var chosenTiles = new Set();
 
 
@@ -82,7 +82,8 @@ function spinRoulette(){
     states.setMessage('Please place your bets.');
     return;
   }
-
+  let chosenNumbers = getChosenNumbers();
+  print(chosenNumbers);
 }
 
 function drawBets(){
@@ -108,8 +109,18 @@ function removeBet(bet){
   for (let cellNumber of bet.cellNumbers){
     cellNumber.totalBet -= bet.value;
     cellNumber.setChosen(false);
+    // chosenNumbers.delete(cellNumber.value)
   }
-  //chosenNumbers.delete();
+}
+
+function getChosenNumbers(){
+  let chosenNumbers = [];
+  for (let cell of board.tiles){
+    if (cell.index >=0 && cell.totalBet > 0){
+      chosenNumbers.push(cell.value);
+    }
+  }
+  return chosenNumbers;
 }
 
 /* Mouse Events */
@@ -211,35 +222,45 @@ function mousePressed(){
       return;
     }
 
-    /* If the clicked tile is already chosen for bet return */
-    for (let cell of board.tiles){
-      if (cell.isClicked(mouseX, mouseY)){
+    /* Only one tile is in focus*/
+    if (focusTiles.length == 1){
+      for (let cell of board.tiles){
+        if (cell.isClicked(mouseX, mouseY)){
+          /* If the clicked tile is already chosen for bet return */
+          if (cell.isChosen()){
+            print('A tile already has bet ' + cell.value);
+            states.setMessage('The tile ' + cell.value + ' is already chosen');
+            return;
+          }
+          else{
+            states.setMessage('Tile ' + cell.value + ' was chosen');
+            cell.setChosen(true);
+          }
+        }
+      }
+    }
+    
+    if (focusTiles.length > 1){
+      for (let cell of focusTiles){
         if (cell.isChosen()){
           print('A tile already has bet ' + cell.value);
           states.setMessage('A tile already has bet');
           return;
         }
       }
-    }
-
-    /* If a focused tile is already picked for bet return */ 
-    /*
-    for (let cell of focusTiles){
-      if (cell.isChosen()){
-        print('A tile already has bet ' + cell.value);
-        states.setMessage('A tile already has bet');
-        return;
+      for (let cell of focusTiles){
+        cell.setChosen(true);
+        print(cell.value + ' was chosen');
       }
     }
-    */
 
     /* Calculate position to place bet */
     let sumX = 0;
     let sumY = 0;
     let pos;
     for (let cell of focusNumbers){
-      chosenNumbers.add(cell.value);
-      cell.setChosen(true);
+      //chosenNumbers.add(cell.value);
+      //cell.setChosen(true);
       cell.addBet(states.bet.value);
       sumX += cell.pos.x + cell.w/4;
       sumY += cell.pos.y + cell.h/4;
